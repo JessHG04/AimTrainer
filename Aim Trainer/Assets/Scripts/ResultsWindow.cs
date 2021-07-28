@@ -9,11 +9,10 @@ public class ResultsWindow : MonoBehaviour{
     private Text _targetsHitText;
     private Text _shotsFiredText;
     private Text _accuracyText;
-
+    
     #endregion
 
     private void Start(){
-        //Finish event
         GameManager.getInstance().FinishGame += GameFinished;
         _scoreText = transform.Find("Score").GetComponent<Text>();
         _targetsHitText = transform.Find("Targets Hit").GetComponent<Text>();
@@ -27,7 +26,6 @@ public class ResultsWindow : MonoBehaviour{
         _targetsHitText.text = "Targets Hit: " + GameManager.getInstance().getTargetsHit().ToString() + " / " + GameManager.getInstance().getTargetsAmount().ToString();
         _shotsFiredText.text = "Shots Fired: " + GameManager.getInstance().getShotsFired().ToString();
         _accuracyText.text = "Accuracy: " + GameManager.getInstance().getAccuracy().ToString() + "%";
-        Debug.Log(GameManager.getInstance().getAccuracy().ToString());
         Show();
     }
 

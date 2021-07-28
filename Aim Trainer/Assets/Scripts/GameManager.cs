@@ -7,15 +7,14 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour{
     #region Public Variables
     public event EventHandler FinishGame;
+    public GameObject target;
+    public GameObject dot;
     //public event EventHandler OnStartPlaying;
 
     #endregion
 
     #region Private Variables
     private static GameManager _instance;
-
-    [SerializeField]
-    private GameObject _target;
     
     [SerializeField]
     private Texture2D _cursorTexture;
@@ -24,22 +23,17 @@ public class GameManager : MonoBehaviour{
 
     [SerializeField]
     private Text _getReadyText;
-
-    [SerializeField]
-    private GameObject _resultsPanel;
-
-    [SerializeField]
-    private Text _scoreText, _targetsHitText, _shotsFiredText, _accuracyText;
     private static float _score = 0.0f;
     private static float _targetsHit = 0.0f;
     private float _shotsFired = 0.0f;
     private float _accuracy = 0.0f;
-    private int _targetsAmount;
+    private int _targetsAmount = 15;
     private Vector2 _targetRandomPosition;
     private State _gameState;
 
     private enum State{
         WaitingToStart,
+        CountDown,
         Playing,
         ShowingResults
     }
@@ -53,15 +47,13 @@ public class GameManager : MonoBehaviour{
 
     private void Awake() {
         _instance = this;
-        _targetsAmount = 10;
     }
     private void Start() {
         _cursorHotSpot = new Vector2(_cursorTexture.width / 2, _cursorTexture.height / 2);
         Cursor.SetCursor(_cursorTexture, _cursorHotSpot, CursorMode.Auto);
-        _resultsPanel.SetActive(false);
         _getReadyText.gameObject.SetActive(true);
         _gameState = State.WaitingToStart;
-        StartCoroutine(nameof(GetReady));
+        //StartCoroutine(nameof(GetReady));
     }
 
     private void Update() {
@@ -70,6 +62,9 @@ public class GameManager : MonoBehaviour{
                 break;
             case State.Playing:
                 if(Input.GetMouseButtonDown(0)){
+                    Vector3 mousePos = Input.mousePosition;
+                    mousePos.z = Camera.main.nearClipPlane;
+                    Instantiate(dot, Camera.main.ScreenToWorldPoint(mousePos), Quaternion.identity);
                     _shotsFired++;
                 }
                 break;
@@ -99,7 +94,7 @@ public class GameManager : MonoBehaviour{
 
         for(int x = _targetsAmount; x > 0; x--){
             _targetRandomPosition = new Vector2(Random.Range(-48f, 48f), Random.Range(-25f, 25f));
-            Instantiate(_target, _targetRandomPosition, Quaternion.identity);
+            Instantiate(target, _targetRandomPosition, Quaternion.identity);
 
             yield return new WaitForSeconds(1f);
         }
@@ -114,6 +109,10 @@ public class GameManager : MonoBehaviour{
     public void updateScore(float scoreMultiplier){
         float maxScore = 10f;
         _score += scoreMultiplier * maxScore;
+    }
+
+    public void setInitialTargets(int amount){
+        _targetsAmount = amount;
     }
 
     public float getScore() => _score;
