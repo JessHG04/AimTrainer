@@ -14,11 +14,21 @@ public class ResultsWindow : MonoBehaviour{
 
     private void Start(){
         //Finish event
+        GameManager.getInstance().FinishGame += GameFinished;
         _scoreText = transform.Find("Score").GetComponent<Text>();
         _targetsHitText = transform.Find("Targets Hit").GetComponent<Text>();
         _shotsFiredText = transform.Find("Shots Fired").GetComponent<Text>();
         _accuracyText = transform.Find("Accuracy").GetComponent<Text>();
         Hide();
+    }
+
+    private void GameFinished(object sender, EventArgs e){
+        _scoreText.text = "Score: " + GameManager.getInstance().getScore().ToString();
+        _targetsHitText.text = "Targets Hit: " + GameManager.getInstance().getTargetsHit().ToString() + " / " + GameManager.getInstance().getTargetsAmount().ToString();
+        _shotsFiredText.text = "Shots Fired: " + GameManager.getInstance().getShotsFired().ToString();
+        _accuracyText.text = "Accuracy: " + GameManager.getInstance().getAccuracy().ToString() + "%";
+        Debug.Log(GameManager.getInstance().getAccuracy().ToString());
+        Show();
     }
 
     private void Hide(){

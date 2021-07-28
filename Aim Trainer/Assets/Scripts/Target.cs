@@ -12,5 +12,4 @@ public class Target : MonoBehaviour {
         GameManager.getInstance().updateScore(1);
         Destroy(gameObject);
     }
-
 }

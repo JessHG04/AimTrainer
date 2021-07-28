@@ -1,9 +1,16 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour{
+    #region Public Variables
+    public event EventHandler FinishGame;
+    //public event EventHandler OnStartPlaying;
+
+    #endregion
+
     #region Private Variables
     private static GameManager _instance;
 
@@ -23,11 +30,19 @@ public class GameManager : MonoBehaviour{
 
     [SerializeField]
     private Text _scoreText, _targetsHitText, _shotsFiredText, _accuracyText;
-    private static float _score, _targetsHit;
-    private float _shotsFired;
-    private float _accuracy;
+    private static float _score = 0.0f;
+    private static float _targetsHit = 0.0f;
+    private float _shotsFired = 0.0f;
+    private float _accuracy = 0.0f;
     private int _targetsAmount;
     private Vector2 _targetRandomPosition;
+    private State _gameState;
+
+    private enum State{
+        WaitingToStart,
+        Playing,
+        ShowingResults
+    }
 
     #endregion
     
@@ -38,23 +53,28 @@ public class GameManager : MonoBehaviour{
 
     private void Awake() {
         _instance = this;
+        _targetsAmount = 10;
     }
     private void Start() {
         _cursorHotSpot = new Vector2(_cursorTexture.width / 2, _cursorTexture.height / 2);
         Cursor.SetCursor(_cursorTexture, _cursorHotSpot, CursorMode.Auto);
-
-        _getReadyText.gameObject.SetActive(false);
-        _targetsAmount = 10;
-        _score = 0;
-        _shotsFired = 0;
-        _targetsHit = 0;
-        _accuracy = 0;
-        StartGetReadyCoroutine();
+        _resultsPanel.SetActive(false);
+        _getReadyText.gameObject.SetActive(true);
+        _gameState = State.WaitingToStart;
+        StartCoroutine(nameof(GetReady));
     }
 
     private void Update() {
-        if(Input.GetMouseButtonDown(0)){
-            _shotsFired++;
+        switch (_gameState) {
+            case State.WaitingToStart:
+                break;
+            case State.Playing:
+                if(Input.GetMouseButtonDown(0)){
+                    _shotsFired++;
+                }
+                break;
+            case State.ShowingResults:
+                break;
         }
     }
 
@@ -75,32 +95,18 @@ public class GameManager : MonoBehaviour{
 
     private IEnumerator SpawnTargets(){
         _getReadyText.gameObject.SetActive(false);
-        _score = 0;
-        _shotsFired = 0;
-        _targetsHit = 0;
-        _accuracy = 0;
+        _gameState = State.Playing;
 
         for(int x = _targetsAmount; x > 0; x--){
-            _targetRandomPosition = new Vector2(Random.Range(-7f, 7f), Random.Range(-4f, 4f));
+            _targetRandomPosition = new Vector2(Random.Range(-48f, 48f), Random.Range(-25f, 25f));
             Instantiate(_target, _targetRandomPosition, Quaternion.identity);
 
             yield return new WaitForSeconds(1f);
         }
-
-        _resultsPanel.gameObject.SetActive(true);
-        _scoreText.text = "Score: " + _score;
-        _targetsHitText.text = "Targets hit: " + _targetsHit + " / " + _targetsAmount;
-        _shotsFiredText.text = "Shots fired: " + _shotsFired;
-        _accuracy = _targetsHit / _shotsFired * 100f;
-        _accuracyText.text = "Accuracy: " + _accuracy + "%";
+        //Call finish game
+        _gameState = State.ShowingResults;
+        if(FinishGame != null) FinishGame(this, EventArgs.Empty);
     }
-
-    public void StartGetReadyCoroutine(){
-        _resultsPanel.SetActive(false);
-        _getReadyText.gameObject.SetActive(true);
-        StartCoroutine(nameof(GetReady));
-    }
-
     public void targetHitted(){
         _targetsHit++;
     }
@@ -108,6 +114,16 @@ public class GameManager : MonoBehaviour{
     public void updateScore(float scoreMultiplier){
         float maxScore = 10f;
         _score += scoreMultiplier * maxScore;
+    }
+
+    public float getScore() => _score;
+    public float getTargetsHit() => _targetsHit;
+    public float getTargetsAmount() => _targetsAmount;
+    public float getShotsFired() => _shotsFired;
+    public float getAccuracy(){
+        _accuracy = _targetsHit / _shotsFired * 100f;
+        _accuracy =(float) Math.Round(_accuracy, 2);
+        return _accuracy;
     }
 
     #endregion
