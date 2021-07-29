@@ -13,7 +13,7 @@ public class ResultsWindow : MonoBehaviour{
     #endregion
 
     private void Start(){
-        GameManager.getInstance().FinishGame += GameFinished;
+        GameManager.GetInstance().FinishGame += GameFinished;
         _scoreText = transform.Find("Score").GetComponent<Text>();
         _targetsHitText = transform.Find("Targets Hit").GetComponent<Text>();
         _shotsFiredText = transform.Find("Shots Fired").GetComponent<Text>();
@@ -22,10 +22,10 @@ public class ResultsWindow : MonoBehaviour{
     }
 
     private void GameFinished(object sender, EventArgs e){
-        _scoreText.text = "Score: " + GameManager.getInstance().getScore().ToString();
-        _targetsHitText.text = "Targets Hit: " + GameManager.getInstance().getTargetsHit().ToString() + " / " + GameManager.getInstance().getTargetsAmount().ToString();
-        _shotsFiredText.text = "Shots Fired: " + GameManager.getInstance().getShotsFired().ToString();
-        _accuracyText.text = "Accuracy: " + GameManager.getInstance().getAccuracy().ToString() + "%";
+        _scoreText.text = "Score: " + GameManager.GetInstance().GetScore().ToString();
+        _targetsHitText.text = "Targets Hit: " + GameManager.GetInstance().GetTargetsHit().ToString() + " / " + GameManager.GetInstance().GetTargetsSpawned().ToString();
+        _shotsFiredText.text = "Shots Fired: " + GameManager.GetInstance().GetShotsFired().ToString();
+        _accuracyText.text = "Accuracy: " + GameManager.GetInstance().GetAccuracy().ToString() + "%";
         Show();
     }
 

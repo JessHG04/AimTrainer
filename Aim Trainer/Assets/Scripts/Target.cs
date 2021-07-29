@@ -9,8 +9,8 @@ public class Target : MonoBehaviour {
     }
 
     private void OnMouseDown() {
-        GameManager.getInstance().targetHitted();
-        GameManager.getInstance().updateScore(1);
+        GameManager.GetInstance().TargetHitted();
+        GameManager.GetInstance().UpdateScore(1);
         Instantiate(circle, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

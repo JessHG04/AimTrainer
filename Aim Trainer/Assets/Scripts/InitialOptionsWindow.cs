@@ -23,14 +23,14 @@ public class InitialOptionsWindow : MonoBehaviour{
         if(targetsInput.text != ""){
             int targets = int.Parse(targetsInput.text);
             if(targets > 0){
-                GameManager.getInstance().setInitialTargets(targets);
+                GameManager.GetInstance().SetInitialTargets(targets);
             }
         }
 
         if(lifesInput.text != ""){
             int lifes = int.Parse(lifesInput.text);
             if(lifes > 0){
-                GameManager.getInstance().setInitialLifes(lifes);
+                GameManager.GetInstance().SetInitialLifes(lifes);
             }
         }
         gameObject.SetActive(false);

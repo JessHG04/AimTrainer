@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Background : MonoBehaviour{
     private void OnMouseDown(){
-        if(GameManager.getInstance().getState() == GameManager.State.Playing){
-            GameManager.getInstance().loseLife();
+        if(GameManager.GetInstance().GetState() == GameManager.State.Playing){
+            GameManager.GetInstance().LoseLife();
         }
     }
 }

@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour{
     private float _shotsFired = 0.0f;
     private float _accuracy = 0.0f;
     private int _targetsAmount = 15;
+    private int _targetsSpawned = 0;
     private int _lifes = 3;
     private Vector2 _targetRandomPosition;
     private State _gameState;
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour{
     #endregion
     
     #region Unity Methods
-    public static GameManager getInstance(){
+    public static GameManager GetInstance(){
         return _instance;
     }
 
@@ -98,10 +99,10 @@ public class GameManager : MonoBehaviour{
         _getReadyText.gameObject.SetActive(false);
         _gameState = State.Playing;
 
-        for(int x = _targetsAmount; x > 0; x--){
-            _targetRandomPosition = new Vector2(Random.Range(-48f, 48f), Random.Range(-25f, 25f));
+        for(int x = 0; x < _targetsAmount; x++){
+            _targetRandomPosition = new Vector2(Random.Range(-48f, 48f), Random.Range(-25f, 20f));
             Instantiate(target, _targetRandomPosition, Quaternion.identity);
-
+            _targetsSpawned++;
             yield return new WaitForSeconds(1f);
         }
         //Call finish game
@@ -112,23 +113,23 @@ public class GameManager : MonoBehaviour{
     private bool Shot(){
         return true;
     }
-    public void targetHitted(){
+    public void TargetHitted(){
         _targetsHit++;
     }
 
-    public void updateScore(float scoreMultiplier){
+    public void UpdateScore(float scoreMultiplier){
         float maxScore = 10f;
         _score += scoreMultiplier * maxScore;
     }
 
-    public void setInitialTargets(int amount){
+    public void SetInitialTargets(int amount){
         _targetsAmount = amount;
     }
 
-    public void setInitialLifes(int lifes){
+    public void SetInitialLifes(int lifes){
         _lifes = lifes;
     }
-    public void loseLife(){
+    public void LoseLife(){
         _lifes--;
         if(_lifes <= 0){
             StopAllCoroutines();
@@ -136,15 +137,20 @@ public class GameManager : MonoBehaviour{
             if(FinishGame != null) FinishGame(this, EventArgs.Empty);
         }
     }
-    public State getState() => _gameState;
-    public float getScore() => _score;
-    public float getTargetsHit() => _targetsHit;
-    public float getTargetsAmount() => _targetsAmount;
-    public float getShotsFired() => _shotsFired;
-    public float getAccuracy(){
+    public int GetLifes() => _lifes;
+    public State GetState() => _gameState;
+    public float GetScore() => _score;
+    public float GetTargetsHit() => _targetsHit;
+    public float GetTargetsSpawned() => _targetsSpawned;
+    public float GetShotsFired() => _shotsFired;
+    public float GetAccuracy(){
         _accuracy = _targetsHit / _shotsFired * 100f;
         _accuracy =(float) Math.Round(_accuracy, 2);
         return _accuracy;
+    }
+
+    public int GetTargetsLeft(){
+        return _targetsAmount - _targetsSpawned;
     }
 
     #endregion
