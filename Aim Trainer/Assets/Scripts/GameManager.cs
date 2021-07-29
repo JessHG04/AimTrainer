@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour{
+public class GameManager : MonoBehaviour {
     #region Public Variables
     public event EventHandler FinishGame;
     public GameObject target;
@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour{
         Playing,
         ShowingResults
     }
-    //public event EventHandler OnStartPlaying;
 
     #endregion
 
@@ -24,7 +23,6 @@ public class GameManager : MonoBehaviour{
     
     [SerializeField]
     private Texture2D _cursorTexture;
-    private Vector2 _cursorHotSpot;
     private Vector2 _mousePosition;
 
     [SerializeField]
@@ -33,10 +31,10 @@ public class GameManager : MonoBehaviour{
     private static float _targetsHit = 0.0f;
     private float _shotsFired = 0.0f;
     private float _accuracy = 0.0f;
-    private int _targetsAmount = 15;
     private int _targetsSpawned = 0;
+    private int _targetsAmount = 15;
     private int _lifes = 3;
-    private Vector2 _targetRandomPosition;
+    private float _spawnTime = 1.0f;
     private State _gameState;
 
     #endregion
@@ -50,8 +48,8 @@ public class GameManager : MonoBehaviour{
         _instance = this;
     }
     private void Start() {
-        InitialOptionsWindow.getInstance().StartGame += GameStarted;
-        _cursorHotSpot = new Vector2(_cursorTexture.width / 2, _cursorTexture.height / 2);
+        InitialOptionsWindow.GetInstance().StartGame += GameStarted;
+        var _cursorHotSpot = new Vector2(_cursorTexture.width / 2, _cursorTexture.height / 2);
         Cursor.SetCursor(_cursorTexture, _cursorHotSpot, CursorMode.Auto);
         _getReadyText.gameObject.SetActive(true);
         _gameState = State.WaitingToStart;
@@ -100,12 +98,12 @@ public class GameManager : MonoBehaviour{
         _gameState = State.Playing;
 
         for(int x = 0; x < _targetsAmount; x++){
-            _targetRandomPosition = new Vector2(Random.Range(-48f, 48f), Random.Range(-25f, 20f));
+            var _targetRandomPosition = new Vector2(Random.Range(-48f, 48f), Random.Range(-25f, 20f));
             Instantiate(target, _targetRandomPosition, Quaternion.identity);
             _targetsSpawned++;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(_spawnTime);
         }
-        //Call finish game
+
         _gameState = State.ShowingResults;
         if(FinishGame != null) FinishGame(this, EventArgs.Empty);
     }
@@ -128,6 +126,10 @@ public class GameManager : MonoBehaviour{
 
     public void SetInitialLifes(int lifes){
         _lifes = lifes;
+    }
+
+    public void SetInitialSpawnTime(float time){
+        _spawnTime = time;
     }
     public void LoseLife(){
         _lifes--;

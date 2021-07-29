@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDWindow : MonoBehaviour{
+public class HUDWindow : MonoBehaviour {
     private Text _targetsLeft;
     private Text _lifes;
 
     private void Start() {
-        InitialOptionsWindow.getInstance().StartGame += GameStarted;
+        InitialOptionsWindow.GetInstance().StartGame += GameStarted;
         GameManager.GetInstance().FinishGame += GameFinished;
         gameObject.SetActive(false);
         _targetsLeft = transform.Find("Targets Left").GetComponent<Text>();
@@ -22,7 +22,6 @@ public class HUDWindow : MonoBehaviour{
     }
 
     private void GameStarted(object sender, EventArgs e) {
-        Debug.Log("Game started");
         gameObject.SetActive(true);
     }
 
