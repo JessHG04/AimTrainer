@@ -14,4 +14,5 @@ public class Target : MonoBehaviour {
         Instantiate(circle, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
+    
 }

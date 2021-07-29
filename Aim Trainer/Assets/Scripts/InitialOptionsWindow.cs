@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class InitialOptionsWindow : MonoBehaviour{
     private static InitialOptionsWindow _instance;
     public InputField targetsInput;
+    public InputField lifesInput;
     public event EventHandler StartGame;
     public static InitialOptionsWindow getInstance(){
         return _instance;
@@ -23,6 +24,13 @@ public class InitialOptionsWindow : MonoBehaviour{
             int targets = int.Parse(targetsInput.text);
             if(targets > 0){
                 GameManager.getInstance().setInitialTargets(targets);
+            }
+        }
+
+        if(lifesInput.text != ""){
+            int lifes = int.Parse(lifesInput.text);
+            if(lifes > 0){
+                GameManager.getInstance().setInitialLifes(lifes);
             }
         }
         gameObject.SetActive(false);

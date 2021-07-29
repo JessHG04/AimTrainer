@@ -9,6 +9,12 @@ public class GameManager : MonoBehaviour{
     public event EventHandler FinishGame;
     public GameObject target;
     public GameObject dot;
+    public enum State{
+        WaitingToStart,
+        CountDown,
+        Playing,
+        ShowingResults
+    }
     //public event EventHandler OnStartPlaying;
 
     #endregion
@@ -28,15 +34,9 @@ public class GameManager : MonoBehaviour{
     private float _shotsFired = 0.0f;
     private float _accuracy = 0.0f;
     private int _targetsAmount = 15;
+    private int _lifes = 3;
     private Vector2 _targetRandomPosition;
     private State _gameState;
-
-    private enum State{
-        WaitingToStart,
-        CountDown,
-        Playing,
-        ShowingResults
-    }
 
     #endregion
     
@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour{
     }
 
     private void GameStarted(object sender, EventArgs e) {
-        //Debug.Log("Targets: " + _targetsAmount);
         _gameState = State.CountDown;
         StartCoroutine(nameof(GetReady));
     }
@@ -65,10 +64,8 @@ public class GameManager : MonoBehaviour{
     private void Update() {
         switch (_gameState) {
             case State.WaitingToStart:
-                //Debug.Log("Waiting to start...");
                 break;
             case State.CountDown:
-                //Debug.Log("Counting down...");
                 break;
             case State.Playing:
                 if(Input.GetMouseButtonDown(0)){
@@ -86,7 +83,6 @@ public class GameManager : MonoBehaviour{
     #endregion
 
     #region Utility Methods
-
     private IEnumerator GetReady(){
         for(int x = 3; x >=1; x--){
             _getReadyText.text = x + "\n" +  "Get Ready! ";
@@ -112,6 +108,10 @@ public class GameManager : MonoBehaviour{
         _gameState = State.ShowingResults;
         if(FinishGame != null) FinishGame(this, EventArgs.Empty);
     }
+
+    private bool Shot(){
+        return true;
+    }
     public void targetHitted(){
         _targetsHit++;
     }
@@ -125,6 +125,18 @@ public class GameManager : MonoBehaviour{
         _targetsAmount = amount;
     }
 
+    public void setInitialLifes(int lifes){
+        _lifes = lifes;
+    }
+    public void loseLife(){
+        _lifes--;
+        if(_lifes <= 0){
+            StopAllCoroutines();
+            _gameState = State.ShowingResults;
+            if(FinishGame != null) FinishGame(this, EventArgs.Empty);
+        }
+    }
+    public State getState() => _gameState;
     public float getScore() => _score;
     public float getTargetsHit() => _targetsHit;
     public float getTargetsAmount() => _targetsAmount;
