@@ -49,16 +49,26 @@ public class GameManager : MonoBehaviour{
         _instance = this;
     }
     private void Start() {
+        InitialOptionsWindow.getInstance().StartGame += GameStarted;
         _cursorHotSpot = new Vector2(_cursorTexture.width / 2, _cursorTexture.height / 2);
         Cursor.SetCursor(_cursorTexture, _cursorHotSpot, CursorMode.Auto);
         _getReadyText.gameObject.SetActive(true);
         _gameState = State.WaitingToStart;
-        //StartCoroutine(nameof(GetReady));
+    }
+
+    private void GameStarted(object sender, EventArgs e) {
+        //Debug.Log("Targets: " + _targetsAmount);
+        _gameState = State.CountDown;
+        StartCoroutine(nameof(GetReady));
     }
 
     private void Update() {
         switch (_gameState) {
             case State.WaitingToStart:
+                //Debug.Log("Waiting to start...");
+                break;
+            case State.CountDown:
+                //Debug.Log("Counting down...");
                 break;
             case State.Playing:
                 if(Input.GetMouseButtonDown(0)){
@@ -84,7 +94,7 @@ public class GameManager : MonoBehaviour{
         }
         _getReadyText.text = "Go!";
         yield return new WaitForSeconds(1f);
-
+        _gameState = State.Playing;
         StartCoroutine(nameof(SpawnTargets));
     }
 

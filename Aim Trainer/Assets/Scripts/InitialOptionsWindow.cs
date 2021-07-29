@@ -5,21 +5,28 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InitialOptionsWindow : MonoBehaviour{
+    private static InitialOptionsWindow _instance;
     public InputField targetsInput;
     public event EventHandler StartGame;
+    public static InitialOptionsWindow getInstance(){
+        return _instance;
+    }
+    private void Awake() {
+        _instance = this;
+    }
     private void Start() {
         gameObject.SetActive(true);
-        targetsInput = gameObject.GetComponent<InputField>();
     }
 
     public void PlayButton(){
-        int targets = int.Parse(targetsInput.text);
-        if(targets > 0){
-            GameManager.getInstance().setInitialTargets(targets);
-        }else{
-            GameManager.getInstance().setInitialTargets(15);
+        if(targetsInput.text != ""){
+            int targets = int.Parse(targetsInput.text);
+            if(targets > 0){
+                GameManager.getInstance().setInitialTargets(targets);
+            }
         }
         gameObject.SetActive(false);
+        if(StartGame != null) StartGame(this, EventArgs.Empty);
     }
 
     public void ExitButton(){
