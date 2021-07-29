@@ -20,10 +20,10 @@ public class GameManager : MonoBehaviour {
 
     #region Private Variables
     private static GameManager _instance;
+    private Vector2 _mousePosition;
     
     [SerializeField]
     private Texture2D _cursorTexture;
-    private Vector2 _mousePosition;
 
     [SerializeField]
     private Text _getReadyText;
@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour {
     public static GameManager GetInstance(){
         return _instance;
     }
-
     private void Awake() {
         _instance = this;
     }
@@ -103,7 +102,7 @@ public class GameManager : MonoBehaviour {
             _targetsSpawned++;
             yield return new WaitForSeconds(_spawnTime);
         }
-
+        yield return new WaitForSeconds(InitialOptionsWindow.GetInstance().GetDestroyTime());
         _gameState = State.ShowingResults;
         if(FinishGame != null) FinishGame(this, EventArgs.Empty);
     }

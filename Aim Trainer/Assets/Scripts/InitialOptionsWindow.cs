@@ -44,6 +44,7 @@ public class InitialOptionsWindow : MonoBehaviour {
 
         if(_spawnTimeInput.text != ""){
             float spawnTime = float.Parse(_spawnTimeInput.text);
+            Math.Round(spawnTime, 2);
             if(spawnTime > 0.0f){
                 GameManager.GetInstance().SetInitialSpawnTime(spawnTime);
             }
@@ -51,6 +52,7 @@ public class InitialOptionsWindow : MonoBehaviour {
 
         if(_destroyTimeInput.text != ""){
             _destroyTime = float.Parse(_destroyTimeInput.text);
+            Math.Round(_destroyTime, 2);
             if(_destroyTime <= 0.0f){
                 _destroyTime = 1.0f;
             }
