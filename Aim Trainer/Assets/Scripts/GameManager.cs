@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField]
     private Text _getReadyText;
-    private static float _score = 0.0f;
+    private static int _score = 0;
     private static float _targetsHit = 0.0f;
     private float _shotsFired = 0.0f;
     private float _accuracy = 0.0f;
@@ -114,9 +114,8 @@ public class GameManager : MonoBehaviour {
         _targetsHit++;
     }
 
-    public void UpdateScore(float scoreMultiplier){
-        float maxScore = 10f;
-        _score += scoreMultiplier * maxScore;
+    public void UpdateScore(int newScore){
+        _score += newScore;
     }
 
     public void SetInitialTargets(int amount){
@@ -138,6 +137,7 @@ public class GameManager : MonoBehaviour {
             if(FinishGame != null) FinishGame(this, EventArgs.Empty);
         }
     }
+
     public int GetLifes() => _lifes;
     public State GetState() => _gameState;
     public float GetScore() => _score;
