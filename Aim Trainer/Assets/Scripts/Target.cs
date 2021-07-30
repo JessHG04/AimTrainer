@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Target : MonoBehaviour {
     public GameObject circle;
-    void Start(){
+    void Start() {
         Destroy(gameObject, InitialOptionsWindow.GetInstance().GetDestroyTime());
     }
 

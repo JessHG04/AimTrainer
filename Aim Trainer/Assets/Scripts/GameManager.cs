@@ -40,9 +40,6 @@ public class GameManager : MonoBehaviour {
     #endregion
     
     #region Unity Methods
-    public static GameManager GetInstance(){
-        return _instance;
-    }
     private void Awake() {
         _instance = this;
     }
@@ -64,9 +61,14 @@ public class GameManager : MonoBehaviour {
             case State.WaitingToStart:
                 break;
             case State.CountDown:
+                _score = 0;
+                _targetsHit = 0.0f;
+                _shotsFired = 0.0f;
+                _accuracy = 0.0f;
+                _targetsSpawned = 0;
                 break;
             case State.Playing:
-                if(Input.GetMouseButtonDown(0)){
+                if(Input.GetMouseButtonDown(0)) {
                     Vector3 mousePos = Input.mousePosition;
                     mousePos.z = Camera.main.nearClipPlane;
                     Instantiate(dot, Camera.main.ScreenToWorldPoint(mousePos), Quaternion.identity);
@@ -81,8 +83,8 @@ public class GameManager : MonoBehaviour {
     #endregion
 
     #region Utility Methods
-    private IEnumerator GetReady(){
-        for(int x = 3; x >=1; x--){
+    private IEnumerator GetReady() {
+        for(int x = 3; x >=1; x--) {
             _getReadyText.text = x + "\n" +  "Get Ready! ";
             yield return new WaitForSeconds(1f);
         }
@@ -92,12 +94,12 @@ public class GameManager : MonoBehaviour {
         StartCoroutine(nameof(SpawnTargets));
     }
 
-    private IEnumerator SpawnTargets(){
+    private IEnumerator SpawnTargets() {
         _getReadyText.gameObject.SetActive(false);
         _gameState = State.Playing;
 
-        for(int x = 0; x < _targetsAmount; x++){
-            var _targetRandomPosition = new Vector2(Random.Range(-48f, 48f), Random.Range(-25f, 20f));
+        for(int x = 0; x < _targetsAmount; x++) {
+            var _targetRandomPosition = new Vector2(Random.Range(-82f, 82f), Random.Range(-44f, 38f));
             Instantiate(target, _targetRandomPosition, Quaternion.identity);
             _targetsSpawned++;
             yield return new WaitForSeconds(_spawnTime);
@@ -107,51 +109,36 @@ public class GameManager : MonoBehaviour {
         if(FinishGame != null) FinishGame(this, EventArgs.Empty);
     }
 
-    private bool Shot(){
-        return true;
-    }
-    public void TargetHitted(){
-        _targetsHit++;
-    }
-
-    public void UpdateScore(int newScore){
-        _score += newScore;
-    }
-
-    public void SetInitialTargets(int amount){
-        _targetsAmount = amount;
-    }
-
-    public void SetInitialLifes(int lifes){
-        _lifes = lifes;
-    }
-
-    public void SetInitialSpawnTime(float time){
-        _spawnTime = time;
-    }
-    public void LoseLife(){
+    public void LoseLife() {
         _lifes--;
-        if(_lifes <= 0){
+        if(_lifes <= 0) {
             StopAllCoroutines();
             _gameState = State.ShowingResults;
             if(FinishGame != null) FinishGame(this, EventArgs.Empty);
         }
     }
 
+    public void TargetHitted() => _targetsHit++;
+    public void UpdateScore(int newScore) => _score += newScore;
+
+    #endregion
+
+    #region Getters & Setters
+    public static GameManager GetInstance() => _instance;
+    public void SetInitialTargets(int amount) => _targetsAmount = amount;
+    public void SetInitialLifes(int lifes) => _lifes = lifes;
+    public void SetInitialSpawnTime(float time) => _spawnTime = time;
     public int GetLifes() => _lifes;
     public State GetState() => _gameState;
     public float GetScore() => _score;
     public float GetTargetsHit() => _targetsHit;
     public float GetTargetsSpawned() => _targetsSpawned;
     public float GetShotsFired() => _shotsFired;
-    public float GetAccuracy(){
+    public int GetTargetsLeft() => _targetsAmount - _targetsSpawned;
+    public float GetAccuracy() {
         _accuracy = _targetsHit / _shotsFired * 100f;
         _accuracy =(float) Math.Round(_accuracy, 2);
         return _accuracy;
-    }
-
-    public int GetTargetsLeft(){
-        return _targetsAmount - _targetsSpawned;
     }
 
     #endregion

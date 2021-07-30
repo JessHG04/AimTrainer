@@ -5,9 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HUDWindow : MonoBehaviour {
+    #region Private Variables
     private Text _lifes;
     private Text _score;
     private Text _targetsLeft;
+
+    #endregion
 
     private void Start() {
         InitialOptionsWindow.GetInstance().StartGame += GameStarted;

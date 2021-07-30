@@ -6,16 +6,16 @@ using UnityEngine.UI;
 
 public class InitialOptionsWindow : MonoBehaviour {
     public event EventHandler StartGame;
+
+    #region Private Variables
     private static InitialOptionsWindow _instance;
     private InputField _lifesInput;
     private InputField _targetsInput;
     private InputField _spawnTimeInput;
     private InputField _destroyTimeInput;
     private float _destroyTime = 1.0f;
-    
-    public static InitialOptionsWindow GetInstance(){
-        return _instance;
-    }
+
+    #endregion
     private void Awake() {
         _instance = this;
     }
@@ -27,33 +27,33 @@ public class InitialOptionsWindow : MonoBehaviour {
         _destroyTimeInput = transform.Find("Destroy Time Input").GetComponent<InputField>();
     }
 
-    public void PlayButton(){
-        if(_lifesInput.text != ""){
+    public void PlayButton() {
+        if(_lifesInput.text != "") {
             int lifes = int.Parse(_lifesInput.text);
-            if(lifes > 0){
+            if(lifes > 0) {
                 GameManager.GetInstance().SetInitialLifes(lifes);
             }
         }
 
-        if(_targetsInput.text != ""){
+        if(_targetsInput.text != "") {
             int targets = int.Parse(_targetsInput.text);
-            if(targets > 0){
+            if(targets > 0) {
                 GameManager.GetInstance().SetInitialTargets(targets);
             }
         }
 
-        if(_spawnTimeInput.text != ""){
+        if(_spawnTimeInput.text != "") {
             float spawnTime = float.Parse(_spawnTimeInput.text);
             Math.Round(spawnTime, 2);
-            if(spawnTime > 0.0f){
+            if(spawnTime > 0.0f) {
                 GameManager.GetInstance().SetInitialSpawnTime(spawnTime);
             }
         }
 
-        if(_destroyTimeInput.text != ""){
+        if(_destroyTimeInput.text != "") {
             _destroyTime = float.Parse(_destroyTimeInput.text);
             Math.Round(_destroyTime, 2);
-            if(_destroyTime <= 0.0f){
+            if(_destroyTime <= 0.0f) {
                 _destroyTime = 1.0f;
             }
         }
@@ -62,11 +62,11 @@ public class InitialOptionsWindow : MonoBehaviour {
         if(StartGame != null) StartGame(this, EventArgs.Empty);
     }
 
-    public float GetDestroyTime(){
-        return _destroyTime;
+    public void ExitButton() {
+        //Go back to the main menu
+        Application.Quit();
     }
 
-    public void ExitButton(){
-        //Go back to the main menu
-    }
+    public static InitialOptionsWindow GetInstance() => _instance;
+    public float GetDestroyTime() => _destroyTime;
 }
