@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour {
     private float _accuracy = 0.0f;
     private int _targetsSpawned = 0;
     private int _targetsAmount = 15;
+    private float _targetSpeed = 10.0f;
     private int _lifes = 3;
     private float _spawnTime = 1.0f;
     private State _gameState;
@@ -128,6 +129,7 @@ public class GameManager : MonoBehaviour {
     public void SetInitialTargets(int amount) => _targetsAmount = amount;
     public void SetInitialLifes(int lifes) => _lifes = lifes;
     public void SetInitialSpawnTime(float time) => _spawnTime = time;
+    public void SetTargetsSpeed(float speed) => _targetSpeed = speed;
     public int GetLifes() => _lifes;
     public State GetState() => _gameState;
     public float GetScore() => _score;
@@ -135,6 +137,7 @@ public class GameManager : MonoBehaviour {
     public float GetTargetsSpawned() => _targetsSpawned;
     public float GetShotsFired() => _shotsFired;
     public int GetTargetsLeft() => _targetsAmount - _targetsSpawned;
+    public float GetTargetSpeed() => _targetSpeed;
     public float GetAccuracy() {
         _accuracy = _targetsHit / _shotsFired * 100f;
         _accuracy =(float) Math.Round(_accuracy, 2);

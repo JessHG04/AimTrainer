@@ -1,11 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Target : MonoBehaviour {
     public GameObject circle;
-    void Start() {
+    public Rigidbody2D rb;
+    private Vector2 _direction;
+    private float _speed;
+    private void Start() {
+        _speed = GameManager.GetInstance().GetTargetSpeed();
+        _direction = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
         Destroy(gameObject, InitialOptionsWindow.GetInstance().GetDestroyTime());
+    }
+
+    private void Update() {
+        if(SceneManager.GetActiveScene().name == "MovingTargetsScene") {
+            rb.velocity = _direction * _speed;
+            Debug.Log(rb.velocity);
+        }
     }
 
     private void OnMouseDown() {
@@ -21,5 +34,4 @@ public class Target : MonoBehaviour {
         Instantiate(circle, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
-    
 }

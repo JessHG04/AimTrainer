@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InitialOptionsWindow : MonoBehaviour {
     public event EventHandler StartGame;
@@ -13,6 +14,7 @@ public class InitialOptionsWindow : MonoBehaviour {
     private InputField _targetsInput;
     private InputField _spawnTimeInput;
     private InputField _destroyTimeInput;
+    private InputField _speedInput;
     private float _destroyTime = 1.0f;
 
     #endregion
@@ -24,25 +26,30 @@ public class InitialOptionsWindow : MonoBehaviour {
         _lifesInput = transform.Find("Lifes Input").GetComponent<InputField>();
         _targetsInput = transform.Find("Targets Input").GetComponent<InputField>();
         _spawnTimeInput = transform.Find("Spawn Time Input").GetComponent<InputField>();
-        _destroyTimeInput = transform.Find("Destroy Time Input").GetComponent<InputField>();
+        if(SceneManager.GetActiveScene().name == "GameScene") {
+            _destroyTimeInput = transform.Find("Destroy Time Input").GetComponent<InputField>();
+        }
+        if(SceneManager.GetActiveScene().name == "MovingTargetsScene") {
+            _speedInput = transform.Find("Speed Input").GetComponent<InputField>();
+        }
     }
 
     public void PlayButton() {
-        if(_lifesInput.text != "") {
+        if(_lifesInput != null && _lifesInput.text != "") {
             int lifes = int.Parse(_lifesInput.text);
             if(lifes > 0) {
                 GameManager.GetInstance().SetInitialLifes(lifes);
             }
         }
 
-        if(_targetsInput.text != "") {
+        if(_targetsInput != null && _targetsInput.text != "") {
             int targets = int.Parse(_targetsInput.text);
             if(targets > 0) {
                 GameManager.GetInstance().SetInitialTargets(targets);
             }
         }
 
-        if(_spawnTimeInput.text != "") {
+        if(_spawnTimeInput != null && _spawnTimeInput.text != "") {
             float spawnTime = float.Parse(_spawnTimeInput.text);
             Math.Round(spawnTime, 2);
             if(spawnTime > 0.0f) {
@@ -50,7 +57,7 @@ public class InitialOptionsWindow : MonoBehaviour {
             }
         }
 
-        if(_destroyTimeInput.text != "") {
+        if(_destroyTimeInput != null && _destroyTimeInput.text != "") {
             _destroyTime = float.Parse(_destroyTimeInput.text);
             Math.Round(_destroyTime, 2);
             if(_destroyTime <= 0.0f) {
@@ -58,6 +65,14 @@ public class InitialOptionsWindow : MonoBehaviour {
             }
         }
 
+        if(_speedInput != null && _speedInput.text != "") {
+            float _speed = float.Parse(_speedInput.text);
+            if(_speed > 0.0f) {
+                GameManager.GetInstance().SetTargetsSpeed(_speed);
+            }
+        }
+
+        
         gameObject.SetActive(false);
         if(StartGame != null) StartGame(this, EventArgs.Empty);
     }
