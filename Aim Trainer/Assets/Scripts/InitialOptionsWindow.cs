@@ -26,10 +26,10 @@ public class InitialOptionsWindow : MonoBehaviour {
         _lifesInput = transform.Find("Lifes Input").GetComponent<InputField>();
         _targetsInput = transform.Find("Targets Input").GetComponent<InputField>();
         _spawnTimeInput = transform.Find("Spawn Time Input").GetComponent<InputField>();
-        if(SceneManager.GetActiveScene().name == "GameScene") {
+        if(SceneManager.GetActiveScene().name == "MotionlessTargetScene") {
             _destroyTimeInput = transform.Find("Destroy Time Input").GetComponent<InputField>();
         }
-        if(SceneManager.GetActiveScene().name == "MovingTargetsScene") {
+        if(SceneManager.GetActiveScene().name == "MovingTargetScene") {
             _speedInput = transform.Find("Speed Input").GetComponent<InputField>();
         }
     }

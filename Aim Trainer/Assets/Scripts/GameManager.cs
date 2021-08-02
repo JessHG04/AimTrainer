@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour {
 
     #region Private Variables
     private static GameManager _instance;
-    private Vector2 _mousePosition;
     
     [SerializeField]
     private Texture2D _cursorTexture;
@@ -71,9 +70,16 @@ public class GameManager : MonoBehaviour {
             case State.Playing:
                 if(Input.GetMouseButtonDown(0)) {
                     Vector3 mousePos = Input.mousePosition;
-                    mousePos.z = Camera.main.nearClipPlane;
-                    Instantiate(dot, Camera.main.ScreenToWorldPoint(mousePos), Quaternion.identity);
+                    //mousePos.z = 0.0f;
+                    mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+                    mousePos.z = 0.0f;
+                    Instantiate(dot, mousePos, Quaternion.identity);
                     _shotsFired++;
+                }
+                if(GetTargetsLeft() == 0 && GetTargetsInScreen() == 0) {
+                    //Debug.Log("Game Over");
+                    _gameState = State.ShowingResults;
+                    if(FinishGame != null) FinishGame(this, EventArgs.Empty);
                 }
                 break;
             case State.ShowingResults:
@@ -105,9 +111,6 @@ public class GameManager : MonoBehaviour {
             _targetsSpawned++;
             yield return new WaitForSeconds(_spawnTime);
         }
-        yield return new WaitForSeconds(InitialOptionsWindow.GetInstance().GetDestroyTime());
-        _gameState = State.ShowingResults;
-        if(FinishGame != null) FinishGame(this, EventArgs.Empty);
     }
 
     public void LoseLife() {
@@ -120,7 +123,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void TargetHitted() => _targetsHit++;
-    public void UpdateScore(int newScore) => _score += newScore;
+    public void UpdateScore(int scoreAdded) => _score += scoreAdded;
 
     #endregion
 
@@ -142,6 +145,11 @@ public class GameManager : MonoBehaviour {
         _accuracy = _targetsHit / _shotsFired * 100f;
         _accuracy =(float) Math.Round(_accuracy, 2);
         return _accuracy;
+    }
+
+    public int GetTargetsInScreen() {
+        var screenTargets = GameObject.FindObjectsOfType<Target>();
+        return screenTargets.Length;
     }
 
     #endregion

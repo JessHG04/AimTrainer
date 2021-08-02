@@ -638,6 +638,7 @@ GameObject:
   m_Component:
   - component: {fileID: 447795248}
   - component: {fileID: 447795249}
+  - component: {fileID: 447795250}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -685,6 +686,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 180, y: 100}
   m_EdgeRadius: 0
+--- !u!114 &447795250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447795247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f721cb9cf79154280343d219fd3a24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &454331805
 GameObject:
   m_ObjectHideFlags: 0
@@ -3292,7 +3305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 5011905018827033222, guid: af62e0e51c63f6443831459d11355842, type: 3}
-  dot: {fileID: 370418031688327270, guid: c26f462202309674d9854d97ff8f4636, type: 3}
+  dot: {fileID: 6232849015190659881, guid: fd419f91c72cc6f4891e71e94b1726e7, type: 3}
   _cursorTexture: {fileID: 2800000, guid: c2d7aae641629094787d0b9fdc0f7e74, type: 3}
   _getReadyText: {fileID: 129510372}
 --- !u!1 &1796378257
