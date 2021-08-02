@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour {
     #region Public Variables
     public event EventHandler FinishGame;
+    public DifficultyDataSO difficultyDataSO;
     public GameObject target;
     public GameObject dot;
     public enum State{
@@ -14,6 +15,12 @@ public class GameManager : MonoBehaviour {
         CountDown,
         Playing,
         ShowingResults
+    }
+    public enum Difficulty{
+        Easy,
+        Medium,
+        Hard,
+        Impossible
     }
 
     #endregion
@@ -26,16 +33,18 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField]
     private Text _getReadyText;
-    private static int _score = 0;
-    private static float _targetsHit = 0.0f;
-    private float _shotsFired = 0.0f;
+    private int _score = 0;
+    private int _targetsHit = 0;
+    private int _shotsFired = 0;
     private float _accuracy = 0.0f;
     private int _targetsSpawned = 0;
     private int _targetsAmount = 15;
     private float _targetSpeed = 10.0f;
     private int _lifes = 3;
     private float _spawnTime = 1.0f;
+    private float _destroyTime = 1.0f;
     private State _gameState;
+    private Difficulty _gameDifficulty;
 
     #endregion
     
@@ -62,22 +71,20 @@ public class GameManager : MonoBehaviour {
                 break;
             case State.CountDown:
                 _score = 0;
-                _targetsHit = 0.0f;
-                _shotsFired = 0.0f;
+                _targetsHit = 0;
+                _shotsFired = 0;
                 _accuracy = 0.0f;
                 _targetsSpawned = 0;
                 break;
             case State.Playing:
                 if(Input.GetMouseButtonDown(0)) {
                     Vector3 mousePos = Input.mousePosition;
-                    //mousePos.z = 0.0f;
                     mousePos = Camera.main.ScreenToWorldPoint(mousePos);
                     mousePos.z = 0.0f;
                     Instantiate(dot, mousePos, Quaternion.identity);
                     _shotsFired++;
                 }
                 if(GetTargetsLeft() == 0 && GetTargetsInScreen() == 0) {
-                    //Debug.Log("Game Over");
                     _gameState = State.ShowingResults;
                     if(FinishGame != null) FinishGame(this, EventArgs.Empty);
                 }
@@ -90,8 +97,23 @@ public class GameManager : MonoBehaviour {
     #endregion
 
     #region Utility Methods
+
+    private void LoadDifficultyData() {
+        _lifes = difficultyDataSO.difficultyDataList[(int)_gameDifficulty].lifes;
+        _targetsAmount = difficultyDataSO.difficultyDataList[(int)_gameDifficulty].targetsAmount;
+        _spawnTime = difficultyDataSO.difficultyDataList[(int)_gameDifficulty].timeToSpawnTarget;
+        _destroyTime = difficultyDataSO.difficultyDataList[(int)_gameDifficulty].timeToDestroyTarget;
+    }
+
+    public void LoadDifficultyData(DifficultyData data){
+        _lifes = data.lifes;
+        _targetsAmount = data.targetsAmount;
+        _spawnTime = data.timeToSpawnTarget;
+        _destroyTime = data.timeToDestroyTarget;
+    }
+
     private IEnumerator GetReady() {
-        for(int x = 3; x >=1; x--) {
+        for(int x = 3; x >= 1; x--) {
             _getReadyText.text = x + "\n" +  "Get Ready! ";
             yield return new WaitForSeconds(1f);
         }
@@ -129,20 +151,25 @@ public class GameManager : MonoBehaviour {
 
     #region Getters & Setters
     public static GameManager GetInstance() => _instance;
+    public void SetDifficulty(Difficulty difficulty) {
+        _gameDifficulty = difficulty;
+        LoadDifficultyData();
+    }
     public void SetInitialTargets(int amount) => _targetsAmount = amount;
     public void SetInitialLifes(int lifes) => _lifes = lifes;
     public void SetInitialSpawnTime(float time) => _spawnTime = time;
     public void SetTargetsSpeed(float speed) => _targetSpeed = speed;
     public int GetLifes() => _lifes;
     public State GetState() => _gameState;
-    public float GetScore() => _score;
-    public float GetTargetsHit() => _targetsHit;
-    public float GetTargetsSpawned() => _targetsSpawned;
-    public float GetShotsFired() => _shotsFired;
+    public int GetScore() => _score;
+    public int GetTargetsHit() => _targetsHit;
+    public int GetTargetsSpawned() => _targetsSpawned;
+    public int GetShotsFired() => _shotsFired;
     public int GetTargetsLeft() => _targetsAmount - _targetsSpawned;
+    public float GetDestroyTime() => _destroyTime;
     public float GetTargetSpeed() => _targetSpeed;
     public float GetAccuracy() {
-        _accuracy = _targetsHit / _shotsFired * 100f;
+        _accuracy = ((float) _targetsHit / _shotsFired) * 100f;
         _accuracy =(float) Math.Round(_accuracy, 2);
         return _accuracy;
     }

@@ -13,7 +13,7 @@ public class Target : MonoBehaviour {
         while(_direction.x == 0 && _direction.y == 0) {
             _direction = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
         }
-        Destroy(gameObject, InitialOptionsWindow.GetInstance().GetDestroyTime());
+        Destroy(gameObject, GameManager.GetInstance().GetDestroyTime());
     }
 
     private void Update() {

@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class InitialOptionsWindow : MonoBehaviour {
     public event EventHandler StartGame;
+    public DifficultyData easyData;
+    public DifficultyData mediumData;
+    public DifficultyData hardData;
+    public DifficultyData impossibleData;
 
     #region Private Variables
     private static InitialOptionsWindow _instance;
@@ -83,5 +87,28 @@ public class InitialOptionsWindow : MonoBehaviour {
     }
 
     public static InitialOptionsWindow GetInstance() => _instance;
-    public float GetDestroyTime() => _destroyTime;
+
+    public void EasyButton() {
+        GameManager.GetInstance().LoadDifficultyData(easyData);
+        gameObject.SetActive(false);
+        if(StartGame != null) StartGame(this, EventArgs.Empty);
+    }
+
+    public void MediumButton() {
+        GameManager.GetInstance().SetDifficulty(GameManager.Difficulty.Medium);
+        gameObject.SetActive(false);
+        if(StartGame != null) StartGame(this, EventArgs.Empty);
+    }
+
+    public void HardButton() {
+        GameManager.GetInstance().SetDifficulty(GameManager.Difficulty.Hard);
+        gameObject.SetActive(false);
+        if(StartGame != null) StartGame(this, EventArgs.Empty);
+    }
+
+    public void ImpossibleButton() {
+        GameManager.GetInstance().SetDifficulty(GameManager.Difficulty.Impossible);
+        gameObject.SetActive(false);
+        if(StartGame != null) StartGame(this, EventArgs.Empty);
+    }
 }
