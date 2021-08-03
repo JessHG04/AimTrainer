@@ -19,7 +19,7 @@ public class HUDWindow : MonoBehaviour {
         _targetsLeft = transform.Find("Targets Left").GetComponent<Text>();
         _timeLeft = transform.Find("Time Left").GetComponent<Text>();
         _currentSceneName = SceneManager.GetActiveScene().name;
-        if(_currentSceneName == "TargetTrackingScene"){
+        if(_currentSceneName == "Target Tracking Scene"){
             _targetsLeft.text = "";
         }else{
             _timeLeft.text = "";
@@ -29,7 +29,7 @@ public class HUDWindow : MonoBehaviour {
     private void Update() {
         _lifes.text = "LIFES: " + GameManager.GetInstance().GetLifes().ToString();
         _score.text = "SCORE: " + GameManager.GetInstance().GetScore().ToString();
-        if(_currentSceneName == "TargetTrackingScene"){
+        if(_currentSceneName == "Target Tracking Scene"){
             _timeLeft.text = "TIME LEFT: " + GameManager.GetInstance().GetTimeLeft().ToString();
         }else{
             _targetsLeft.text = "TARGETS LEFT: " + GameManager.GetInstance().GetTargetsLeft().ToString();

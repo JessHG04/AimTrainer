@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour {
                     if(FinishGame != null) FinishGame(this, EventArgs.Empty);
                 }
 
-                if(_currentSceneName == "TargetTrackingScene") {
+                if(_currentSceneName == "Target Tracking Scene") {
                     _timeToFinish -= Time.deltaTime;
                     if(_timeToFinish <= 0) {
                         _gameState = State.ShowingResults;

@@ -44,8 +44,7 @@ public class ResultsWindow : MonoBehaviour {
         Debug.Log("Share button clicked");
     }
     
-    public void MainMenuButtonClicked() {
-        //SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
-        Application.Quit();
+    public void ExitButtonClicked() {
+        SceneManager.LoadScene("Initial Scene", LoadSceneMode.Single);
     }
 }

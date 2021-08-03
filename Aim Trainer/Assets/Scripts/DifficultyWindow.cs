@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DifficultyWindow : MonoBehaviour {
     public DifficultyData easyData;
@@ -39,8 +40,7 @@ public class DifficultyWindow : MonoBehaviour {
         if(StartGame != null) StartGame(this, EventArgs.Empty);
     }
     public void ExitButton() {
-        //Go back to the main menu
-        Application.Quit();
+        SceneManager.LoadScene("Initial Scene", LoadSceneMode.Single);
     }
     public static DifficultyWindow GetInstance() => _instance;
 }

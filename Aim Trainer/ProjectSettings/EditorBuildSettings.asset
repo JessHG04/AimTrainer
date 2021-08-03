@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MotionlessTargetScene.unity
+    path: Assets/Scenes/Initial Scene.unity
+    guid: 9743373b959113f49b30333a8283ad04
+  - enabled: 1
+    path: Assets/Scenes/Motionless Target Scene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Moving Target Scene.unity
+    guid: d38a6c3b994c4314c8e0148440d19946
+  - enabled: 1
+    path: Assets/Scenes/Target Tracking Scene.unity
+    guid: 91a7cc1a18886b4408ef8dc3cc7916ae
   m_configObjects: {}

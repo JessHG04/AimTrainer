@@ -18,18 +18,18 @@ public class Target : MonoBehaviour {
             _direction = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
         }
         _currentSceneName = SceneManager.GetActiveScene().name;
-        if(_currentSceneName == "MotionlessTargetScene" || _currentSceneName == "MovingTargetScene") {
+        if(_currentSceneName == "Motionless Target Scene" || _currentSceneName == "Moving Target Scene") {
             Destroy(gameObject, GameManager.GetInstance().GetDestroyTime());
         }
     }
 
     private void Update() {
-        if(_currentSceneName == "MovingTargetScene") {
+        if(_currentSceneName == "Moving Target Scene") {
             CheckTargetOutScreen();
             rb.velocity = _direction * _speed;
         }
 
-        if(_currentSceneName == "TargetTrackingScene") {
+        if(_currentSceneName == "Target Tracking Scene") {
             _timeToChangeDirection -= Time.deltaTime;
             if(_timeToChangeDirection <= 0) {
                 _timeToChangeDirection = 1f;
@@ -69,12 +69,12 @@ public class Target : MonoBehaviour {
         var go = Instantiate(circle, transform.position, Quaternion.identity);
         var text = go.GetComponentInChildren<TextMesh>();
         text.text = score.ToString();
-        if(_currentSceneName == "MotionlessTargetScene" || _currentSceneName == "MovingTargetScene") {
+        if(_currentSceneName == "Motionless Target Scene" || _currentSceneName == "Moving Target Scene") {
             Destroy(gameObject);
         }
     }
 
     private void GameFinished(object sender, EventArgs e) {
-        Destroy(gameObject);
+        if(_currentSceneName == "Target Tracking Scene") Destroy(gameObject);
     }
 }
