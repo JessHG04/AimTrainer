@@ -9,7 +9,6 @@ public class DifficultyDataSO : ScriptableObject {
 }
 
 [Serializable]
-
 public class DifficultyData {
     public int lifes;
     public int targetsAmount;

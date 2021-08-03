@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour {
     #region Public Variables
     public event EventHandler FinishGame;
-    public DifficultyDataSO difficultyDataSO;
     public GameObject target;
     public GameObject dot;
     public enum State{
@@ -15,12 +14,6 @@ public class GameManager : MonoBehaviour {
         CountDown,
         Playing,
         ShowingResults
-    }
-    public enum Difficulty{
-        Easy,
-        Medium,
-        Hard,
-        Impossible
     }
 
     #endregion
@@ -44,7 +37,6 @@ public class GameManager : MonoBehaviour {
     private float _spawnTime = 1.0f;
     private float _destroyTime = 1.0f;
     private State _gameState;
-    private Difficulty _gameDifficulty;
 
     #endregion
     
@@ -53,7 +45,7 @@ public class GameManager : MonoBehaviour {
         _instance = this;
     }
     private void Start() {
-        InitialOptionsWindow.GetInstance().StartGame += GameStarted;
+        DifficultyWindow.GetInstance().StartGame += GameStarted;
         var _cursorHotSpot = new Vector2(_cursorTexture.width / 2, _cursorTexture.height / 2);
         Cursor.SetCursor(_cursorTexture, _cursorHotSpot, CursorMode.Auto);
         _getReadyText.gameObject.SetActive(true);
@@ -97,15 +89,7 @@ public class GameManager : MonoBehaviour {
     #endregion
 
     #region Utility Methods
-
-    private void LoadDifficultyData() {
-        _lifes = difficultyDataSO.difficultyDataList[(int)_gameDifficulty].lifes;
-        _targetsAmount = difficultyDataSO.difficultyDataList[(int)_gameDifficulty].targetsAmount;
-        _spawnTime = difficultyDataSO.difficultyDataList[(int)_gameDifficulty].timeToSpawnTarget;
-        _destroyTime = difficultyDataSO.difficultyDataList[(int)_gameDifficulty].timeToDestroyTarget;
-    }
-
-    public void LoadDifficultyData(DifficultyData data){
+    public void InitDifficultyData(DifficultyData data){
         _lifes = data.lifes;
         _targetsAmount = data.targetsAmount;
         _spawnTime = data.timeToSpawnTarget;
@@ -151,10 +135,6 @@ public class GameManager : MonoBehaviour {
 
     #region Getters & Setters
     public static GameManager GetInstance() => _instance;
-    public void SetDifficulty(Difficulty difficulty) {
-        _gameDifficulty = difficulty;
-        LoadDifficultyData();
-    }
     public void SetInitialTargets(int amount) => _targetsAmount = amount;
     public void SetInitialLifes(int lifes) => _lifes = lifes;
     public void SetInitialSpawnTime(float time) => _spawnTime = time;

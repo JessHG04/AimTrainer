@@ -13,7 +13,7 @@ public class HUDWindow : MonoBehaviour {
     #endregion
 
     private void Start() {
-        InitialOptionsWindow.GetInstance().StartGame += GameStarted;
+        DifficultyWindow.GetInstance().StartGame += GameStarted;
         GameManager.GetInstance().FinishGame += GameFinished;
         gameObject.SetActive(false);
         _lifes = transform.Find("Lifes").GetComponent<Text>();
