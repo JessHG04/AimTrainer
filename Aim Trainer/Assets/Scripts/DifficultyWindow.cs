@@ -1,29 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class DifficultyWindow : MonoBehaviour {
-    public event EventHandler StartGame;
     public DifficultyData easyData;
     public DifficultyData mediumData;
     public DifficultyData hardData;
     public DifficultyData impossibleData;
-
-    #region Private Variables
+    public event EventHandler StartGame;
     private static DifficultyWindow _instance;
-
-    #endregion
     private void Awake() {
         _instance = this;
     }
     private void Start() {
         gameObject.SetActive(true);
     }
-
-    public static DifficultyWindow GetInstance() => _instance;
 
     public void EasyButton() {
         GameManager.GetInstance().InitDifficultyData(easyData);
@@ -52,4 +42,5 @@ public class DifficultyWindow : MonoBehaviour {
         //Go back to the main menu
         Application.Quit();
     }
+    public static DifficultyWindow GetInstance() => _instance;
 }

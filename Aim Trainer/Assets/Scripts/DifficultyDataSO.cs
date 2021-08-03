@@ -15,4 +15,5 @@ public class DifficultyData {
     public float timeToSpawnTarget;
     public float timeToDestroyTarget;
     public float targetSpeed;
+    public float timeToFinishGame;
 }

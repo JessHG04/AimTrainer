@@ -4,13 +4,11 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class ResultsWindow : MonoBehaviour {
-    #region Private Variables
     private Text _scoreText;
     private Text _targetsHitText;
     private Text _shotsFiredText;
     private Text _accuracyText;
-    
-    #endregion
+    private string _currentSceneName;
 
     private void Start() {
         GameManager.GetInstance().FinishGame += GameFinished;
@@ -18,6 +16,7 @@ public class ResultsWindow : MonoBehaviour {
         _targetsHitText = transform.Find("Targets Hit").GetComponent<Text>();
         _shotsFiredText = transform.Find("Shots Fired").GetComponent<Text>();
         _accuracyText = transform.Find("Accuracy").GetComponent<Text>();
+        _currentSceneName = SceneManager.GetActiveScene().name;
         Hide();
     }
 
@@ -38,7 +37,7 @@ public class ResultsWindow : MonoBehaviour {
     }
 
     public void RetryButtonClicked() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        SceneManager.LoadScene(_currentSceneName, LoadSceneMode.Single);
     }
 
     public void ShareButtonClicked() {

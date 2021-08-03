@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour {
@@ -31,12 +32,14 @@ public class GameManager : MonoBehaviour {
     private int _shotsFired = 0;
     private float _accuracy = 0.0f;
     private int _targetsSpawned = 0;
-    private int _targetsAmount = 15;
-    private float _targetSpeed = 10.0f;
-    private int _lifes = 3;
-    private float _spawnTime = 1.0f;
-    private float _destroyTime = 1.0f;
+    private int _targetsAmount;
+    private float _targetSpeed;
+    private int _lifes;
+    private float _spawnTime;
+    private float _destroyTime;
     private State _gameState;
+    private float _timeToFinish;
+    private string _currentSceneName;
 
     #endregion
     
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour {
         var _cursorHotSpot = new Vector2(_cursorTexture.width / 2, _cursorTexture.height / 2);
         Cursor.SetCursor(_cursorTexture, _cursorHotSpot, CursorMode.Auto);
         _getReadyText.gameObject.SetActive(true);
+        _currentSceneName = SceneManager.GetActiveScene().name;
         _gameState = State.WaitingToStart;
     }
 
@@ -62,11 +66,6 @@ public class GameManager : MonoBehaviour {
             case State.WaitingToStart:
                 break;
             case State.CountDown:
-                _score = 0;
-                _targetsHit = 0;
-                _shotsFired = 0;
-                _accuracy = 0.0f;
-                _targetsSpawned = 0;
                 break;
             case State.Playing:
                 if(Input.GetMouseButtonDown(0)) {
@@ -76,10 +75,20 @@ public class GameManager : MonoBehaviour {
                     Instantiate(dot, mousePos, Quaternion.identity);
                     _shotsFired++;
                 }
+                
                 if(GetTargetsLeft() == 0 && GetTargetsInScreen() == 0) {
                     _gameState = State.ShowingResults;
                     if(FinishGame != null) FinishGame(this, EventArgs.Empty);
                 }
+
+                if(_currentSceneName == "TargetTrackingScene") {
+                    _timeToFinish -= Time.deltaTime;
+                    if(_timeToFinish <= 0) {
+                        _gameState = State.ShowingResults;
+                        if(FinishGame != null) FinishGame(this, EventArgs.Empty);
+                    }
+                }
+
                 break;
             case State.ShowingResults:
                 break;
@@ -89,11 +98,13 @@ public class GameManager : MonoBehaviour {
     #endregion
 
     #region Utility Methods
-    public void InitDifficultyData(DifficultyData data){
+    public void InitDifficultyData(DifficultyData data) {
         _lifes = data.lifes;
         _targetsAmount = data.targetsAmount;
         _spawnTime = data.timeToSpawnTarget;
         _destroyTime = data.timeToDestroyTarget;
+        _targetSpeed = data.targetSpeed;
+        _timeToFinish = data.timeToFinishGame;
     }
 
     private IEnumerator GetReady() {
@@ -135,10 +146,6 @@ public class GameManager : MonoBehaviour {
 
     #region Getters & Setters
     public static GameManager GetInstance() => _instance;
-    public void SetInitialTargets(int amount) => _targetsAmount = amount;
-    public void SetInitialLifes(int lifes) => _lifes = lifes;
-    public void SetInitialSpawnTime(float time) => _spawnTime = time;
-    public void SetTargetsSpeed(float speed) => _targetSpeed = speed;
     public int GetLifes() => _lifes;
     public State GetState() => _gameState;
     public int GetScore() => _score;
@@ -148,6 +155,7 @@ public class GameManager : MonoBehaviour {
     public int GetTargetsLeft() => _targetsAmount - _targetsSpawned;
     public float GetDestroyTime() => _destroyTime;
     public float GetTargetSpeed() => _targetSpeed;
+    public int GetTimeLeft() => Mathf.RoundToInt(_timeToFinish);
     public float GetAccuracy() {
         _accuracy = ((float) _targetsHit / _shotsFired) * 100f;
         _accuracy =(float) Math.Round(_accuracy, 2);
