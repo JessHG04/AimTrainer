@@ -98,6 +98,12 @@ TextureImporter:
   - first:
       213: -4058178988746613901
     second: ATLAS_ICONS_31
+  - first:
+      213: -626109442615276267
+    second: ATLAS_ICONS_32
+  - first:
+      213: 6469238739288040140
+    second: ATLAS_ICONS_33
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -361,7 +367,7 @@ TextureImporter:
       name: ATLAS_ICONS_7
       rect:
         serializedVersion: 2
-        x: 907
+        x: 903
         y: 914
         width: 107
         height: 92
@@ -487,10 +493,10 @@ TextureImporter:
       name: ATLAS_ICONS_13
       rect:
         serializedVersion: 2
-        x: 953
-        y: 827
-        width: 14
-        height: 14
+        x: 0
+        y: 639
+        width: 129
+        height: 129
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -508,7 +514,7 @@ TextureImporter:
       name: ATLAS_ICONS_14
       rect:
         serializedVersion: 2
-        x: 0
+        x: 131
         y: 639
         width: 129
         height: 129
@@ -529,10 +535,10 @@ TextureImporter:
       name: ATLAS_ICONS_15
       rect:
         serializedVersion: 2
-        x: 131
-        y: 639
-        width: 129
-        height: 129
+        x: 267
+        y: 643
+        width: 106
+        height: 122
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -550,10 +556,10 @@ TextureImporter:
       name: ATLAS_ICONS_16
       rect:
         serializedVersion: 2
-        x: 267
-        y: 643
-        width: 106
-        height: 122
+        x: 391
+        y: 735
+        width: 113
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -571,10 +577,10 @@ TextureImporter:
       name: ATLAS_ICONS_17
       rect:
         serializedVersion: 2
-        x: 391
-        y: 735
-        width: 113
-        height: 14
+        x: 524
+        y: 644
+        width: 102
+        height: 120
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -592,10 +598,10 @@ TextureImporter:
       name: ATLAS_ICONS_18
       rect:
         serializedVersion: 2
-        x: 524
-        y: 644
-        width: 102
-        height: 120
+        x: 765
+        y: 671
+        width: 129
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -613,10 +619,10 @@ TextureImporter:
       name: ATLAS_ICONS_19
       rect:
         serializedVersion: 2
-        x: 765
-        y: 671
-        width: 129
-        height: 65
+        x: 391
+        y: 696
+        width: 113
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -634,10 +640,10 @@ TextureImporter:
       name: ATLAS_ICONS_20
       rect:
         serializedVersion: 2
-        x: 391
-        y: 696
-        width: 113
-        height: 15
+        x: 895
+        y: 700
+        width: 129
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -655,10 +661,10 @@ TextureImporter:
       name: ATLAS_ICONS_21
       rect:
         serializedVersion: 2
-        x: 895
-        y: 700
-        width: 129
-        height: 9
+        x: 391
+        y: 658
+        width: 113
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -676,10 +682,10 @@ TextureImporter:
       name: ATLAS_ICONS_22
       rect:
         serializedVersion: 2
-        x: 391
-        y: 658
-        width: 113
-        height: 14
+        x: 6
+        y: 526
+        width: 244
+        height: 99
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -697,10 +703,10 @@ TextureImporter:
       name: ATLAS_ICONS_23
       rect:
         serializedVersion: 2
-        x: 6
-        y: 526
-        width: 244
-        height: 99
+        x: 265
+        y: 527
+        width: 239
+        height: 97
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -718,10 +724,10 @@ TextureImporter:
       name: ATLAS_ICONS_24
       rect:
         serializedVersion: 2
-        x: 265
-        y: 527
-        width: 239
-        height: 97
+        x: 515
+        y: 514
+        width: 122
+        height: 122
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -878,6 +884,48 @@ TextureImporter:
       bones: []
       spriteID: 37bddccf5b37ea7c0800000000000000
       internalID: -4058178988746613901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ATLAS_ICONS_32
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 398
+        width: 97
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51d066a77cc9f47f0800000000000000
+      internalID: -626109442615276267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ATLAS_ICONS_33
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 522
+        width: 108
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc2a57e9b5a57c950800000000000000
+      internalID: 6469238739288040140
       vertices: []
       indices: 
       edges: []

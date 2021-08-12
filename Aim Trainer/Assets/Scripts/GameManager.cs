@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour {
         _gameState = State.Playing;
 
         for(int x = 0; x < _targetsAmount; x++) {
-            var _targetRandomPosition = new Vector2(Random.Range(-82f, 82f), Random.Range(-44f, 38f));
+            var _targetRandomPosition = new Vector2(Random.Range(-82f, 82f), Random.Range(-27f, 38f));
             Instantiate(target, _targetRandomPosition, Quaternion.identity);
             _targetsSpawned++;
             yield return new WaitForSeconds(_spawnTime);
