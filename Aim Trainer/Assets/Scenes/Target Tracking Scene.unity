@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 11679644}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -41, z: 0}
-  m_LocalScale: {x: 9.3, y: 9.3, z: 1}
+  m_LocalScale: {x: 9.3, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 447795248}
   m_RootOrder: 0
@@ -344,28 +344,28 @@ MonoBehaviour:
     targetsAmount: 1
     timeToSpawnTarget: 1
     timeToDestroyTarget: 1
-    targetSpeed: 25
+    targetSpeed: 10
     timeToFinishGame: 30
   mediumData:
     lifes: 12
     targetsAmount: 1
     timeToSpawnTarget: 0.8
     timeToDestroyTarget: 0.8
-    targetSpeed: 8
+    targetSpeed: 20
     timeToFinishGame: 40
   hardData:
     lifes: 8
     targetsAmount: 1
     timeToSpawnTarget: 0.6
     timeToDestroyTarget: 0.6
-    targetSpeed: 10
+    targetSpeed: 25
     timeToFinishGame: 50
   impossibleData:
     lifes: 5
     targetsAmount: 1
     timeToSpawnTarget: 0.5
     timeToDestroyTarget: 0.5
-    targetSpeed: 12
+    targetSpeed: 30
     timeToFinishGame: 60
 --- !u!1 &237527686
 GameObject:
@@ -1332,7 +1332,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 38d4a5d9cf975fd4cac27cef446356f3, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0

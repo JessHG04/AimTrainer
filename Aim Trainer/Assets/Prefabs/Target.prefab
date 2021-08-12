@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -8182049397559820374, guid: 6d7f4f44c4e728e408907999ef9f1830, type: 3}
+  m_Sprite: {fileID: -5628899322019100319, guid: 6d7f4f44c4e728e408907999ef9f1830, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,9 +98,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.04, y: 0}
   serializedVersion: 2
-  m_Radius: 0.61
+  m_Radius: 0.47
 --- !u!50 &3967549707481008791
 Rigidbody2D:
   serializedVersion: 4
@@ -134,5 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb6445b5eaa14814e9d972c729cd0bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circle: {fileID: 1651890210859560853, guid: c7043057c15bfcf4d832f447718b7ac5, type: 3}
-  rb: {fileID: 3967549707481008791}
+  _circle: {fileID: 1651890210859560853, guid: c7043057c15bfcf4d832f447718b7ac5, type: 3}
+  _rigidbody: {fileID: 3967549707481008791}
+  _collider: {fileID: 5011905018827033223}
+  _spriteRenderer: {fileID: 5011905018827033216}
+  _targetSprite: {fileID: -8182049397559820374, guid: 6d7f4f44c4e728e408907999ef9f1830, type: 3}
+  _birdSprite: {fileID: -5628899322019100319, guid: 6d7f4f44c4e728e408907999ef9f1830, type: 3}

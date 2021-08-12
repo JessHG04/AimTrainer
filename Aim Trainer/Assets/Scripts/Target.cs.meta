@@ -5,6 +5,10 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - circle: {fileID: 1651890210859560853, guid: c7043057c15bfcf4d832f447718b7ac5, type: 3}
+  - rb: {instanceID: 0}
+  - sr: {instanceID: 0}
+  - targetSprite: {fileID: -8182049397559820374, guid: 6d7f4f44c4e728e408907999ef9f1830, type: 3}
+  - birdSprite: {fileID: -5628899322019100319, guid: 6d7f4f44c4e728e408907999ef9f1830, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
