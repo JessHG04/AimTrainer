@@ -3,10 +3,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DifficultyWindow : MonoBehaviour {
-    public DifficultyData easyData;
-    public DifficultyData mediumData;
-    public DifficultyData hardData;
-    public DifficultyData impossibleData;
+
+    public DifficultyDataSO difficultyData;
     public event EventHandler StartGame;
     private static DifficultyWindow _instance;
     private void Awake() {
@@ -17,25 +15,25 @@ public class DifficultyWindow : MonoBehaviour {
     }
 
     public void EasyButton() {
-        GameManager.GetInstance().InitDifficultyData(easyData);
+        GameManager.GetInstance().InitDifficultyData(difficultyData.dataList[0]);
         gameObject.SetActive(false);
         if(StartGame != null) StartGame(this, EventArgs.Empty);
     }
 
     public void MediumButton() {
-        GameManager.GetInstance().InitDifficultyData(mediumData);
+        GameManager.GetInstance().InitDifficultyData(difficultyData.dataList[1]);
         gameObject.SetActive(false);
         if(StartGame != null) StartGame(this, EventArgs.Empty);
     }
 
     public void HardButton() {
-        GameManager.GetInstance().InitDifficultyData(hardData);
+        GameManager.GetInstance().InitDifficultyData(difficultyData.dataList[2]);
         gameObject.SetActive(false);
         if(StartGame != null) StartGame(this, EventArgs.Empty);
     }
 
     public void ImpossibleButton() {
-        GameManager.GetInstance().InitDifficultyData(impossibleData);
+        GameManager.GetInstance().InitDifficultyData(difficultyData.dataList[3]);
         gameObject.SetActive(false);
         if(StartGame != null) StartGame(this, EventArgs.Empty);
     }

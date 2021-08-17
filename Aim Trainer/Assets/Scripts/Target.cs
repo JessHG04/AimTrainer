@@ -10,21 +10,25 @@ public class Target : MonoBehaviour {
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Sprite _targetSprite;
     [SerializeField] private Sprite _birdSprite;
-    private Vector2 _direction = new Vector2(0, 0);
+    private Vector2 _direction;
     private string _currentSceneName;
     private float _speed;
-    private float _timeToChangeDirection;
+    private float _timeToChangeDirection = 1.5f;
+    private const float LeftLimit = -84f;
+    private const float RightLimit = 84f;
+    private const float TopLimit = 38f;
+    private const float BottomLimit = -27f;
     private void Start() {
         GameManager.GetInstance().FinishGame += GameFinished;
         _speed = GameManager.GetInstance().GetTargetSpeed();
-        _timeToChangeDirection = 0.5f;
-        while(_direction.x == 0 && _direction.y == 0) {
-            _direction = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
-        }
         _currentSceneName = SceneManager.GetActiveScene().name;
+        Random.InitState((int)System.DateTime.Now.Ticks);
+        NewDirection();
+        
         if(_currentSceneName == "Motionless Target Scene"){
             _spriteRenderer.sprite = _targetSprite;
             _collider.radius = 0.61f;
+            _collider.offset = new Vector2(0, 0);
         }else{
             _spriteRenderer.sprite = _birdSprite;
             _collider.radius = 0.47f;
@@ -36,6 +40,7 @@ public class Target : MonoBehaviour {
     }
 
     private void Update() {
+        Random.InitState(System.DateTime.Now.Millisecond);
         if(_currentSceneName == "Moving Target Scene") {
             CheckTargetOutScreen();
             CheckSpriteLookAt();
@@ -44,31 +49,81 @@ public class Target : MonoBehaviour {
 
         if(_currentSceneName == "Target Tracking Scene") {
             _timeToChangeDirection -= Time.deltaTime;
-            if(_timeToChangeDirection <= 0) {
-                _timeToChangeDirection = 1f;
-                _direction = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
-                while(_direction.x == 0 && _direction.y == 0) {
-                    _direction = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
-                }
+            if(!CheckTargetOutScreen() && _timeToChangeDirection <= 0.0f) {
+                //Debug.Log("Change Direction");
+                NewDirection();
             }
-            CheckTargetOutScreen();
             CheckSpriteLookAt();
             _rigidbody.velocity = _direction * _speed;
         }
     }
 
-    private void CheckTargetOutScreen() {
-        if(Mathf.Round(transform.position.x) <= -82){ //Left
-            _direction.x = 1f;
-        }else if(Mathf.Round(transform.position.x) >= 82f){ //Right
-            _direction.x = -1f;
+    private void NewDirection(){
+        int currentX = (int) _direction.x;
+        int currentY = (int) _direction.y;
+        int newX = Random.Range(-1, 2);
+        int newY = Random.Range(-1, 2);
+
+        while((newX == 0 && newY == 0) || (newX == currentX && newY == currentY)) {
+            newX = Random.Range(-1, 2);
+            newY = Random.Range(-1, 2);
         }
 
-        if(Mathf.Round(transform.position.y) >= 38){ //Up
-            _direction.y = -1f;
-        }else if(Mathf.Round(transform.position.y) <= -27){ //Down
-            _direction.y = 1f;
+        _direction = new Vector2(newX, newY);
+        _timeToChangeDirection = 1.5f;
+        //Debug.Log("OldX: " + currentX + " OldY: " + currentY);
+        //Debug.Log("NewX: " + newX + " NewY: " + newY);
+        //Debug.Log(" ");
+    }
+
+    private bool CheckTargetOutScreen() {
+        bool changed = false;        
+        
+        if((Mathf.Round(transform.position.x) <= LeftLimit) && (Mathf.Round(transform.position.y) >= TopLimit)) { //Left and up
+            transform.position = new Vector2(LeftLimit + 1f, TopLimit - 1f);
+            _direction = new Vector2(1f, -1f);
+            changed = true;
+            //Debug.Log("Left and up");
+        }else if((Mathf.Round(transform.position.x) <= LeftLimit) && (Mathf.Round(transform.position.y) <= BottomLimit) && !changed) { //Left and down
+            transform.position = new Vector2(LeftLimit + 1f, BottomLimit + 1f);
+            _direction = new Vector2(1f, 1f);
+            changed = true;
+            //Debug.Log("Left and down");
+        }else if((Mathf.Round(transform.position.x) >= RightLimit) && (Mathf.Round(transform.position.y) >= TopLimit) && !changed) { //Right and up
+            transform.position = new Vector2(RightLimit - 1f, TopLimit - 1f);
+            _direction = new Vector2(-1f, -1f);
+            changed = true;
+            //Debug.Log("Right and up");
+        }else if((Mathf.Round(transform.position.x) >= RightLimit) && (Mathf.Round(transform.position.y) <= BottomLimit) && !changed) { //Right and down  
+            transform.position = new Vector2(RightLimit - 1f, BottomLimit + 1f);
+            _direction = new Vector2(-1f, 1f);
+            changed = true;
+            //Debug.Log("Right and down");
+        }else if((Mathf.Round(transform.position.x) <= LeftLimit) && !changed) { //Left
+            transform.position = new Vector2(LeftLimit + 1f, transform.position.y);
+            _direction = new Vector2(1f, _direction.y);
+            changed = true;
+            //Debug.Log("Left");
+        }else if((Mathf.Round(transform.position.x) >= RightLimit) && !changed) { //Right
+            transform.position = new Vector2(RightLimit - 1f, transform.position.y);
+            _direction = new Vector2(-1f, _direction.y);
+            changed = true;
+            //Debug.Log("Right");
+        }else if((Mathf.Round(transform.position.y) >= TopLimit) && !changed ){ //Up
+            transform.position = new Vector2(transform.position.x, TopLimit - 1f);
+            _direction = new Vector2(_direction.x, -1f);
+            changed = true;
+            //Debug.Log("Up");
+        }else if((Mathf.Round(transform.position.y) <= BottomLimit) && !changed) { //Down
+            transform.position = new Vector2(transform.position.x, BottomLimit + 1f);
+            _direction = new Vector2(_direction.x, 1f);
+            changed = true;
+            //Debug.Log("Down");
         }
+
+        //if(changed) _timeToChangeDirection = 1.5f;
+        
+        return changed;
     }
 
     private void CheckSpriteLookAt() {
@@ -102,7 +157,7 @@ public class Target : MonoBehaviour {
         GameManager.GetInstance().UpdateScore(score);
         
         if(_currentSceneName != "Target Tracking Scene") {
-            var go = Instantiate(_circle, transform.position, Quaternion.identity);
+            var go = Instantiate(_circle, transform.position, transform.rotation);
             var text = go.GetComponentInChildren<TextMesh>();
             text.text = score.ToString();
         }
@@ -110,6 +165,11 @@ public class Target : MonoBehaviour {
         if(_currentSceneName == "Motionless Target Scene" || _currentSceneName == "Moving Target Scene") {
             Destroy(gameObject);
         }
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, _direction * 10f);
     }
 
     private void GameFinished(object sender, EventArgs e) {

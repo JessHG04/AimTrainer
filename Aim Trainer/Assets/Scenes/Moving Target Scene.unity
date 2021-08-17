@@ -257,34 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f925c679de104a9b60668bce005e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  easyData:
-    lifes: 15
-    targetsAmount: 20
-    timeToSpawnTarget: 1
-    timeToDestroyTarget: 1
-    targetSpeed: 5
-    timeToFinishGame: 0
-  mediumData:
-    lifes: 12
-    targetsAmount: 20
-    timeToSpawnTarget: 0.8
-    timeToDestroyTarget: 0.8
-    targetSpeed: 8
-    timeToFinishGame: 0
-  hardData:
-    lifes: 8
-    targetsAmount: 25
-    timeToSpawnTarget: 0.6
-    timeToDestroyTarget: 0.6
-    targetSpeed: 10
-    timeToFinishGame: 0
-  impossibleData:
-    lifes: 5
-    targetsAmount: 25
-    timeToSpawnTarget: 0.5
-    timeToDestroyTarget: 0.5
-    targetSpeed: 12
-    timeToFinishGame: 0
+  difficultyData: {fileID: 11400000, guid: 82e4d6fcaa8b67045b8d3b88a332cee9, type: 2}
 --- !u!1 &237527686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,7 +2265,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_Sprite: {fileID: -5178289384385008961, guid: 8744719c01b31734ba847916f73ba36b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2374,7 +2347,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_Sprite: {fileID: -5178289384385008961, guid: 8744719c01b31734ba847916f73ba36b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

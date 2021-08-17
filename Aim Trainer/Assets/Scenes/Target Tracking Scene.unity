@@ -339,34 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f925c679de104a9b60668bce005e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  easyData:
-    lifes: 15
-    targetsAmount: 1
-    timeToSpawnTarget: 1
-    timeToDestroyTarget: 1
-    targetSpeed: 10
-    timeToFinishGame: 30
-  mediumData:
-    lifes: 12
-    targetsAmount: 1
-    timeToSpawnTarget: 0.8
-    timeToDestroyTarget: 0.8
-    targetSpeed: 20
-    timeToFinishGame: 40
-  hardData:
-    lifes: 8
-    targetsAmount: 1
-    timeToSpawnTarget: 0.6
-    timeToDestroyTarget: 0.6
-    targetSpeed: 25
-    timeToFinishGame: 50
-  impossibleData:
-    lifes: 5
-    targetsAmount: 1
-    timeToSpawnTarget: 0.5
-    timeToDestroyTarget: 0.5
-    targetSpeed: 30
-    timeToFinishGame: 60
+  difficultyData: {fileID: 11400000, guid: b5fc8a76364a3d94a811666eaa6ea68f, type: 2}
 --- !u!1 &237527686
 GameObject:
   m_ObjectHideFlags: 0

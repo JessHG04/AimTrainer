@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09eca244a1688ec4899f4d14c53fc0bd, type: 3}
+  m_Name: Motionless Data
+  m_EditorClassIdentifier: 
+  dataList:
+  - lifes: 20
+    targetsAmount: 20
+    timeToSpawnTarget: 1.5
+    timeToDestroyTarget: 1.5
+    targetSpeed: 0
+    timeToFinishGame: 0
+  - lifes: 15
+    targetsAmount: 20
+    timeToSpawnTarget: 1
+    timeToDestroyTarget: 1
+    targetSpeed: 0
+    timeToFinishGame: 0
+  - lifes: 10
+    targetsAmount: 20
+    timeToSpawnTarget: 0.8
+    timeToDestroyTarget: 0.8
+    targetSpeed: 0
+    timeToFinishGame: 0
+  - lifes: 5
+    targetsAmount: 25
+    timeToSpawnTarget: 0.5
+    timeToDestroyTarget: 0.5
+    targetSpeed: 0
+    timeToFinishGame: 0

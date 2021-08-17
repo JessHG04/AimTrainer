@@ -71,12 +71,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1876437879760465509, guid: 6d7f4f44c4e728e408907999ef9f1830, type: 3}
+  m_Sprite: {fileID: 7150002044818042495, guid: 6d7f4f44c4e728e408907999ef9f1830, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.22, y: 1.22}
+  m_Size: {x: 1.07, y: 0.92}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -128,8 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 9122341909349092764}
-  _targetSprite: {fileID: -1876437879760465509, guid: 6d7f4f44c4e728e408907999ef9f1830, type: 3}
-  _birdSprite: {fileID: -626109442615276267, guid: 6d7f4f44c4e728e408907999ef9f1830, type: 3}
+  _targetSprite: {fileID: -8182049397559820374, guid: 6d7f4f44c4e728e408907999ef9f1830, type: 3}
+  _birdSprite: {fileID: 7150002044818042495, guid: 6d7f4f44c4e728e408907999ef9f1830, type: 3}
+  _textMesh: {fileID: 3965803957338624151}
 --- !u!1 &7479896686509220135
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +157,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7479896686509220135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1651890210859560851}
@@ -211,14 +212,14 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7479896686509220135}
-  m_Text: 10
+  m_Text: 100
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 0
   m_TabSize: 1
-  m_FontSize: 50
+  m_FontSize: 45
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}

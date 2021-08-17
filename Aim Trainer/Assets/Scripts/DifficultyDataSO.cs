@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DifficultyDataSO", menuName = "Aim Trainer/DifficultyDataSO", order = 0)]
 
 public class DifficultyDataSO : ScriptableObject {
-    public List<DifficultyData> difficultyDataList = new List<DifficultyData> ();
+    public List<DifficultyData> dataList = new List<DifficultyData> ();
 }
 
 [Serializable]
