@@ -161,6 +161,8 @@ public class GameManager : MonoBehaviour {
     public float GetTargetSpeed() => _targetSpeed;
     public int GetTimeLeft() => Mathf.RoundToInt(_timeToFinish);
     public float GetAccuracy() {
+        if(_shotsFired == 0) return 0.0f;
+        
         _accuracy = ((float) _targetsHit / _shotsFired) * 100f;
         _accuracy =(float) Math.Round(_accuracy, 2);
         return _accuracy;

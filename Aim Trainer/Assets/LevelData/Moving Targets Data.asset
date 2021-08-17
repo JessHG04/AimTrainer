@@ -17,7 +17,7 @@ MonoBehaviour:
     targetsAmount: 20
     timeToSpawnTarget: 1.5
     timeToDestroyTarget: 1.5
-    targetSpeed: 5
+    targetSpeed: 10
     timeToFinishGame: 0
   - lifes: 15
     targetsAmount: 20
@@ -31,9 +31,9 @@ MonoBehaviour:
     timeToDestroyTarget: 0.8
     targetSpeed: 15
     timeToFinishGame: 0
-  - lifes: 5
+  - lifes: 10
     targetsAmount: 25
-    timeToSpawnTarget: 0.5
-    timeToDestroyTarget: 0.5
-    targetSpeed: 20
+    timeToSpawnTarget: 0.6
+    timeToDestroyTarget: 0.6
+    targetSpeed: 15
     timeToFinishGame: 0

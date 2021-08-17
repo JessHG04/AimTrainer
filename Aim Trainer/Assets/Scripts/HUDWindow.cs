@@ -16,23 +16,27 @@ public class HUDWindow : MonoBehaviour {
         gameObject.SetActive(false);
         _lifes = transform.Find("Lifes").GetComponent<Text>();
         _score = transform.Find("Score").GetComponent<Text>();
+        Text targetsLeftText = transform.Find("Targets Left Text").GetComponent<Text>();
         _targetsLeft = transform.Find("Targets Left").GetComponent<Text>();
+        Text timeLeftText = transform.Find("Time Left Text").GetComponent<Text>();
         _timeLeft = transform.Find("Time Left").GetComponent<Text>();
         _currentSceneName = SceneManager.GetActiveScene().name;
         if(_currentSceneName == "Target Tracking Scene"){
+            targetsLeftText.text = "";
             _targetsLeft.text = "";
         }else{
+            timeLeftText.text = "";
             _timeLeft.text = "";
         }
     }
 
     private void Update() {
-        _lifes.text = "LIFES: " + GameManager.GetInstance().GetLifes().ToString();
-        _score.text = "SCORE: " + GameManager.GetInstance().GetScore().ToString();
+        _lifes.text = GameManager.GetInstance().GetLifes().ToString();
+        _score.text = GameManager.GetInstance().GetScore().ToString();
         if(_currentSceneName == "Target Tracking Scene"){
-            _timeLeft.text = "TIME LEFT: " + GameManager.GetInstance().GetTimeLeft().ToString();
+            _timeLeft.text = GameManager.GetInstance().GetTimeLeft().ToString();
         }else{
-            _targetsLeft.text = "TARGETS LEFT: " + GameManager.GetInstance().GetTargetsLeft().ToString();
+            _targetsLeft.text = GameManager.GetInstance().GetTargetsLeft().ToString();
         }
     }
 

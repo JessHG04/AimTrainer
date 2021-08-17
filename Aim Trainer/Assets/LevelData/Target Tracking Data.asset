@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: Target Tracking Data
   m_EditorClassIdentifier: 
   dataList:
-  - lifes: 0
-    targetsAmount: 0
-    timeToSpawnTarget: 0
-    timeToDestroyTarget: 0
-    targetSpeed: 0
-    timeToFinishGame: 0
-  - lifes: 0
-    targetsAmount: 0
-    timeToSpawnTarget: 0
-    timeToDestroyTarget: 0
-    targetSpeed: 0
-    timeToFinishGame: 0
-  - lifes: 0
-    targetsAmount: 0
-    timeToSpawnTarget: 0
-    timeToDestroyTarget: 0
-    targetSpeed: 0
-    timeToFinishGame: 0
-  - lifes: 0
-    targetsAmount: 0
-    timeToSpawnTarget: 0
-    timeToDestroyTarget: 0
-    targetSpeed: 0
-    timeToFinishGame: 0
+  - lifes: 20
+    targetsAmount: 1
+    timeToSpawnTarget: 1
+    timeToDestroyTarget: 1
+    targetSpeed: 10
+    timeToFinishGame: 30
+  - lifes: 15
+    targetsAmount: 1
+    timeToSpawnTarget: 1
+    timeToDestroyTarget: 1
+    targetSpeed: 15
+    timeToFinishGame: 30
+  - lifes: 10
+    targetsAmount: 1
+    timeToSpawnTarget: 1
+    timeToDestroyTarget: 1
+    targetSpeed: 20
+    timeToFinishGame: 45
+  - lifes: 5
+    targetsAmount: 1
+    timeToSpawnTarget: 1
+    timeToDestroyTarget: 1
+    targetSpeed: 30
+    timeToFinishGame: 60
